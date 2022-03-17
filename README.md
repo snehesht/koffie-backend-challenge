@@ -2,7 +2,7 @@
 
 #### Objective
 
-Implement a simple FastAPI backend to decode VINs, powered by the vPIC API and backed by a SQLite cache.
+Implement a simple [FastAPI](https://fastapi.tiangolo.com) backend to decode VINs, powered by the [vPIC API](https://vpic.nhtsa.dot.gov/api/) and backed by a [SQLite](https://www.sqlite.org/index.html) cache.
 
 #### Time Expectation
 
