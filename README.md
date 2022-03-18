@@ -6,7 +6,7 @@ Implement a simple [FastAPI](https://fastapi.tiangolo.com) backend to decode VIN
 
 #### Time Expectation
 
-We expect this challenge to take you 3-5 hours to complete - one or two evenings.
+We expect this challenge to take you 3-5 hours to complete (one or two evenings). You may take as much time as you need to submit the challenge.
 
 #### Requirements
 
