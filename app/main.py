@@ -1,15 +1,19 @@
 import uvicorn
 from fastapi import FastAPI, Path, HTTPException, BackgroundTasks
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, RedirectResponse
 import os
 import datetime
 from vpic.client import decode_vin
 from store import CacheStore, VINResponse
 from export import export_cache
 
+# Database file path
+# When running on stateless environments, use presisted volume path to store the database
+db_file = os.path.join(os.path.dirname(__file__), 'store.db')
+
 app = FastAPI()
 
-store = CacheStore('store.db')
+store = CacheStore(db_file)
 
 # Startup Workflow
 @app.on_event("startup")
@@ -23,12 +27,22 @@ async def shutdown_event():
 	# Close the database connection
 	await store.close();
 
-# Health Check to ensure the server is running
 @app.get('/health')
 def health():
+	"""
+	Health Check to check if the app is running. Required when deploying in Kubernetes or other environments
+	"""
 	return {'status': 'ok', 'timestamp': datetime.datetime.now().timestamp()}
 
 
+@app.get('/')
+def index():
+	"""
+	Redirect Index to the Swagger UI
+	"""
+	return RedirectResponse("/docs")
+
+# API Endpoints
 @app.get("/lookup/{vin}")
 async def lookup(
 	vin: str = Path(title="VIN", description="Vehicle Identification Number", regex="^[A-Z0-9]{17}$"),
@@ -84,7 +98,7 @@ async def remove(
 @app.post("/export", response_class=FileResponse)
 async def export(background_tasks: BackgroundTasks):
 	"""
-	Export all the vehicle information from the cache store in parquet format
+	Export all the data from the cache store in parquet format
 	"""
 	temp_parquest_file_path = ""
 	try:
@@ -94,11 +108,12 @@ async def export(background_tasks: BackgroundTasks):
 		print('Error: ', e)
 		raise HTTPException(status_code=422, detail=str(e))
 	finally:
-		# Remove the temporary parquet file
+		# Remove the temporary parquet file using background tasks to 
+		# ensure it is removed after the response is sent
 		if (temp_parquest_file_path != ""):
 			background_tasks.add_task(os.remove, temp_parquest_file_path);
 
 
 # Entry point
 if __name__ == '__main__':
-    uvicorn.run("main:app", port=8000, host='127.0.0.1')
+    uvicorn.run("main:app", port=8000, host='0.0.0.0');

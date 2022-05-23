@@ -10,14 +10,6 @@ python-versions = ">=3.6.0"
 dev = ["fastapi (==0.70.1)", "aioauth (==1.2.0)", "uvicorn (==0.16.0)", "wheel", "twine (==3.7.1)", "pydantic[dotenv] (==1.8.2)", "asyncpg (==0.25.0)", "SQLAlchemy[asyncio] (==1.4.28)", "orjson (==3.6.5)", "python-jose[pycryptodome] (==3.3.0)", "dependency-injector (==4.37.0)", "python-multipart (==0.0.5)", "alembic (==1.7.5)", "sqlmodel (==0.0.5)", "httpx (==0.21.1)", "pre-commit (==2.16.0)", "pytest (==6.2.5)", "pytest-asyncio (==0.16.0)", "pytest-cov (==3.0.0)", "pytest-env (==0.6.2)", "pytest-sugar (==0.9.4)", "testfixtures (==6.18.3)", "bump2version (==1.0.1)"]
 
 [[package]]
-name = "aiofiles"
-version = "0.8.0"
-description = "File support for asyncio."
-category = "main"
-optional = false
-python-versions = ">=3.6,<4.0"
-
-[[package]]
 name = "aiosqlite"
 version = "0.17.0"
 description = "asyncio bridge to the standard sqlite3 module"
@@ -467,16 +459,12 @@ standard = ["websockets (>=10.0)", "httptools (>=0.4.0)", "watchgod (>=0.6)", "p
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "7ae3a25ffb7aea1971c979b1f749f73b43ae1d415d910c1325221ba177e046d5"
+content-hash = "a48d0a5343b0f90d8e2c64e01a8ce1314318538133e3c368adce34e0782bc438"
 
 [metadata.files]
 aioauth-fastapi = [
     {file = "aioauth_fastapi-0.1.0-py2.py3-none-any.whl", hash = "sha256:902dd3cfcc05e7e878bd30934ff26f80cce69b4b3f7aace776e77670e10d4ff5"},
     {file = "aioauth_fastapi-0.1.0.tar.gz", hash = "sha256:4a392856cd307ee58409bff589912daa8ca6a25e07455a9fbf14a1d8522beb9f"},
-]
-aiofiles = [
-    {file = "aiofiles-0.8.0-py3-none-any.whl", hash = "sha256:7a973fc22b29e9962d0897805ace5856e6a566ab1f0c8e5c91ff6c866519c937"},
-    {file = "aiofiles-0.8.0.tar.gz", hash = "sha256:8334f23235248a3b2e83b2c3a78a22674f39969b96397126cc93664d9a901e59"},
 ]
 aiosqlite = [
     {file = "aiosqlite-0.17.0-py3-none-any.whl", hash = "sha256:6c49dc6d3405929b1d08eeccc72306d3677503cc5e5e43771efc1e00232e8231"},

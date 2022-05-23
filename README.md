@@ -1,5 +1,23 @@
 ### Koffie Labs Backend Coding Challenge
 
+#### Usage
+```bash
+
+# Run app in local environment
+pip install -U poetry
+poetry install
+poetry shell
+make dev
+
+# Run tests
+make test
+
+# Run in docker environment (build and run docker image)
+make docker
+
+```
+
+
 #### Objective
 
 Implement a simple [FastAPI](https://fastapi.tiangolo.com) backend to decode VINs, powered by the [vPIC API](https://vpic.nhtsa.dot.gov/api/) and backed by a [SQLite](https://www.sqlite.org/index.html) cache.
