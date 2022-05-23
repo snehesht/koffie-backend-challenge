@@ -52,12 +52,12 @@ async def lookup(
 	Lookup vehicle information by VIN
 	"""
 	try:
-		cached_data = await store.get_vin_data(vin) # 1XPWD40X1ED215307
+		cached_data = await store.get_vin_data(vin)
 		if (cached_data != None):
 			return cached_data;
 		
 		# Lookup data from vPIC API
-		data = await decode_vin(vin); # 1G1Z3A1Z9C0390013
+		data = await decode_vin(vin);
 
 		# Save the data to the cache store
 		await store.set_vin_data(
