@@ -35,7 +35,7 @@ async def decode_vin(vin: str) -> VehicleInfo:
 				vin=vin_data["VIN"], 
 				make=vin_data["Make"],
 				model=vin_data["Model"],
-				modle_year=vin_data["ModelYear"],
+				model_year=vin_data["ModelYear"],
 				body_class=vin_data["BodyClass"]
 			);
 	except Exception as e:
