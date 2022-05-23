@@ -1,4 +1,5 @@
 import httpx 
+from logger import logger
 from typing import TypedDict
 
 class VehicleInfo(TypedDict):
@@ -39,6 +40,5 @@ async def decode_vin(vin: str) -> VehicleInfo:
 				body_class=vin_data["BodyClass"]
 			);
 	except Exception as e:
-		print("Error decoding VIN: " + vin + " with vPIC API")
-		print(e)
+		logger.critical("Error decoding VIN: " + vin + " with vPIC API", e)
 		raise e

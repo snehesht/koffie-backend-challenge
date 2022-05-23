@@ -1,4 +1,5 @@
 import aiosqlite
+from logger import logger
 
 class VINResponse(dict):
 	vin: str;
@@ -58,7 +59,7 @@ class CacheStore:
 			''', (vin, make, model, model_year, body_class));
 			await self.db.commit()
 		except Exception as e:
-			print('Error in writing vin ' + vin + ' data to cache store', e)
+			logger.critical('Error in writing vin ' + vin + ' data to cache store', e)
 			raise e
 
 	async def remove_vin_data(self, vin: str) -> bool:
@@ -74,7 +75,7 @@ class CacheStore:
 			await self.db.commit()
 			return True
 		except Exception as e:
-			print('Error in removing vin ' + vin + ' data from cache store', e)
+			logger.critical('Error in removing vin ' + vin + ' data from cache store', e)
 			return False
 
 
@@ -87,5 +88,5 @@ class CacheStore:
 				records = await cursor.fetchall()
 				return records
 		except Exception as e:
-			print('Error in exporting vin data from cache store', e)
+			logger.critical('Error in exporting vin data from cache store', e)
 			raise e

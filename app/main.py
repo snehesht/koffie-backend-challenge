@@ -6,6 +6,7 @@ import datetime
 from vpic.client import decode_vin
 from store import CacheStore, VINResponse
 from export import export_cache
+from logger import logger
 
 # Database file path
 # When running on stateless environments, use presisted volume path to store the database
@@ -76,7 +77,7 @@ async def lookup(
 			cached_result=False
 		);
 	except Exception as e:
-		print('Error looking up VIN: ', e)
+		logger.critical('Error looking up VIN', e)
 		raise HTTPException(status_code=400, detail=str(e))
 
 
@@ -91,7 +92,7 @@ async def remove(
 		status = await store.remove_vin_data(vin)
 		return {'cache_delete_success': status, 'vin': vin}
 	except Exception as e:
-		print('Error: ', e)
+		logger.critical('Error removing VIN from cache', e)
 		return {'cache_delete_success': False, 'vin': vin}
 
 
@@ -105,7 +106,7 @@ async def export(background_tasks: BackgroundTasks):
 		temp_parquest_file_path = await export_cache(store)
 		return temp_parquest_file_path
 	except Exception as e:
-		print('Error: ', e)
+		logger.critical('Error exporting cache to parquet file format', e)
 		raise HTTPException(status_code=422, detail=str(e))
 	finally:
 		# Remove the temporary parquet file using background tasks to 
@@ -116,4 +117,5 @@ async def export(background_tasks: BackgroundTasks):
 
 # Entry point
 if __name__ == '__main__':
-    uvicorn.run("main:app", port=8000, host='0.0.0.0');
+	logger.info('Starting VIN Cache Service');
+	uvicorn.run("main:app", port=8000, host='0.0.0.0', log_level="critical");
