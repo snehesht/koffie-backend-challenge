@@ -1,7 +1,8 @@
 import httpx 
-from logger import logger
+import logging
 from typing import TypedDict
 
+logger = logging.getLogger(__name__)
 class VehicleInfo(TypedDict):
 	vin: str
 	make: str
@@ -22,7 +23,7 @@ async def decode_vin(vin: str) -> VehicleInfo:
 
 			# Check if vPIC API returned results
 			if (len(data["Results"]) == 0):
-				raise Exception("No data found for VIN: " + vin)
+				raise Exception("No data found for VIN: " + str(vin))
 
 			# Get the first result
 			vin_data = data["Results"][0]; 

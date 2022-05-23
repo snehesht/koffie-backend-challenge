@@ -12,6 +12,14 @@ async def test_decode_vin():
 
 @pytest.mark.asyncio
 async def test_decode_vin_incomplete():
-	with pytest.raises(Exception) as excinfo:
+	try:
 		await decode_vin('1XPWD40X1ED');
-	assert 'Error: 6 - Incomplete VIN' in str(excinfo.value)
+	except Exception as e:
+		assert True
+
+@pytest.mark.asyncio
+async def test_decode_vin_invalid():
+	try:
+		await decode_vin('1XPWD40X1ED215308');
+	except Exception as e:
+		assert True
